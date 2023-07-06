@@ -1,0 +1,10 @@
+﻿05/07/23
+-Build Base project importing assets,Texture,shader,code,etc
+    Import the shaders vfxMaster
+
+-PlayerMovement basic: 
+    create an sphere wint a basic character controler and a camera
+    
+- Camera that follow-Cinemachine
+
+- sword slash basic, to interact whit plants
