@@ -65,6 +65,7 @@ public class Sunflower : APlants
             Impulse(player, Vector3.up, 10);
         }
     }
+    
 
     private void Impulse(CharacterController controller, Vector3 direction, float force)
     {

@@ -1,4 +1,9 @@
-﻿-sword slash and combo 
+﻿The game is a adventure 3D platform, whit combat, the game is about a little explorer that 
+get lost and needs to find her way back home, the game is set in a forest, the player will have to
+fight enemies and solve puzzles to get to the end of the game.
+
+
+-sword slash and combo 
 
 -basic enemy that patrols and attacks the player 
        Enemy states::
@@ -14,7 +19,7 @@
             Aplant.cs
             InteractWhitPlant.cs
             iPlantActivator.cs
-
+- in the climing plant we need to make the player dont fall backwards when he is climing
 
                 
   

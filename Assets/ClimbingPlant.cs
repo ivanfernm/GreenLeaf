@@ -11,23 +11,19 @@ public class ClimbingPlant : APlants
         Desactivate,
     }
 
-    public state currentState;
+    public state currentState = state.Desactivate;
     [SerializeField] private float ActivationDuration;
     [SerializeField] private bool isClimbing;
     [SerializeField] private CharacterController _player;
     [SerializeField] private float ClimbingSpeed = 10f;
-    private void Start()
-    {
-        currentState = state.Desactivate;
-    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) && isClimbing)
+        if (Input.GetKey(KeyCode.W) && isClimbing)
         {
-            _player.Move(Vector3.up * Time.deltaTime * ClimbingSpeed); 
+            _player.Move(Vector3.up * Time.deltaTime * ClimbingSpeed);
         }
- 
+
         switch (currentState)
         {
             case state.Activate:
@@ -43,11 +39,11 @@ public class ClimbingPlant : APlants
     {
         var col = other.gameObject.GetComponent<IPlantActivator>();
 
-        if (col != null)
-        {
-            Activate();
-        }
-        
+        if (col != null) Activate();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
         var player = other.gameObject.GetComponent<CharacterController>();
 
         if (player != null && currentState == state.Activate)
@@ -57,11 +53,9 @@ public class ClimbingPlant : APlants
             {
                 SetParent(player);
             }
-            else
-            {
-                DeParent(player);
-            }
         }
+        else
+            DeParent(_player);
     }
 
     void Activate()
@@ -75,6 +69,7 @@ public class ClimbingPlant : APlants
         transform.localScale = new Vector3(1, 8, 1);
         currentState = state.Activate;
         yield return new WaitForSeconds(a);
+        if (_player != null) DeParent(_player);
         currentState = state.Desactivate;
         transform.localScale = new Vector3(1, 1, 1);
         isClimbing = false;
@@ -84,6 +79,7 @@ public class ClimbingPlant : APlants
     {
         controller.gameObject.transform.SetParent(this.transform);
     }
+
     void DeParent(CharacterController controller)
     {
         controller.gameObject.transform.parent = null;

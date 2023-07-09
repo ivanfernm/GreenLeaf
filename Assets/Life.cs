@@ -11,6 +11,8 @@ public class Life : MonoBehaviour
    [SerializeField] private float currentLife;
    
    [SerializeField] private TextMeshProUGUI textMeshPro;
+   
+   Cinemachine.CinemachineImpulseSource impulseSource;
 
    private void Start()
    {
@@ -26,6 +28,8 @@ public class Life : MonoBehaviour
       {
          Die();
       }
+      impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
+      impulseSource.GenerateImpulse(Camera.main.transform.forward);
    }
    void Die()
    {
