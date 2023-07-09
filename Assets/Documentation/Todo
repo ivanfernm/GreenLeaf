@@ -1,11 +1,4 @@
-﻿
--Camera that follow-Cinemachine (DONE)
-
--interact whit a basic plant.
-
--Plant that makes the player jump more,
-
--sword slash and combo 
+﻿-sword slash and combo 
 
 -basic enemy that patrols and attacks the player 
        Enemy states::
@@ -15,7 +8,7 @@
          die
 
 -Make the camere feel better (https://christopherhilton88.medium.com/3rd-person-follow-virtual-camera-explained-in-unitys-cinemachine-e9fc936f83c8)
-
+-create screen shake
 -the plant system and structure should be done better
     Scrips:: 
             Aplant.cs

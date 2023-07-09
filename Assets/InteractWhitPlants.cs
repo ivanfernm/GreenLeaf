@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
-public class InteractWhitPlants : MonoBehaviour,IPlantActivator
+public class InteractWhitPlants : MonoBehaviour,IPlantActivator,IDamageDeler
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float damage = 10;
+    
+    public float getDamage()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return damage;
     }
 }

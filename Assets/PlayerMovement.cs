@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
    [SerializeField] private CharacterController cControler;
-   [SerializeField] private Vector3 playerVelocity;
+   [SerializeField] public Vector3 playerVelocity;
    [SerializeField] private bool groundedPlayer;
    [SerializeField] private float playerMinSpeed = 2.0f;
    [SerializeField] private float playerMaxSpeed = 10.0f;
