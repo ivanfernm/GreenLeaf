@@ -88,7 +88,8 @@ public class NavNodes
     public NavTerrain _navTerrain;
     private Vector3 _vertexPositon;
     private Vector3 _worldPosition;
-    private List<NavNodes> _nearByNodes = new List<NavNodes>();
+    private Tuple<NavNodes, NavNodes, NavNodes, NavNodes> _nearByNodes;
+
     public NavNodes(Vector3 vPosition, NavTerrain navTerrain)
     {
         _vertexPositon = vPosition;
@@ -102,49 +103,71 @@ public class NavNodes
 
     public void SetNearByNodes()
     {
-        //por cada nodo en la lista de nodos
-        foreach (var node in _navTerrain._nodes)
-        {
-            //si el nodo es el mismo que el que estoy iterando, no hago nada
-            if (node == this)
-            {
-                continue;
-            }
-            //optimise the code bellow
-            var Left = _navTerrain._nodes.Where(x => x.GetWorldPosition().x < _worldPosition.x);
-            if (Left.Any())
-            {
-              var a = Left.OrderByDescending(x => x.GetWorldPosition().x).First();
-              _nearByNodes.Add(a);
-            }
+        _nearByNodes = GetNeightbords(_navTerrain);
+        
+        Debug.Log("left" + _nearByNodes.Item1.GetWorldPosition());
+        Debug.Log("right" + _nearByNodes.Item2.GetWorldPosition());
+        Debug.Log("up" + _nearByNodes.Item3.GetWorldPosition());
+        Debug.Log("down" + _nearByNodes.Item4.GetWorldPosition());
+    }
 
-            var right  = _navTerrain._nodes.Where(x => x.GetWorldPosition().x > _worldPosition.x);
-            if (right.Any())
+    public Tuple<NavNodes, NavNodes, NavNodes, NavNodes> GetNeightbords(NavTerrain navTerrain)
+    {
+        var result = navTerrain._nodes.Aggregate(
+            Tuple.Create<NavNodes, NavNodes, NavNodes, NavNodes>(null, null, null, null),
+            (x, y) =>
             {
-               var a = right.OrderByDescending(x => x.GetWorldPosition().x).First();
-               _nearByNodes.Add(a);
-            }
+               
+                var arrey = new List<NavNodes>();
+                var left = navTerrain._nodes.Where(z => z.GetWorldPosition().x < y.GetWorldPosition().x);
+                if (left.Any())
+                {
+                    var o = left.OrderByDescending(z => z.GetWorldPosition().x).First();
+                    arrey.Add(o); 
+                }
+                else
+                {
+                    arrey.Add(null);
+                }
 
-            var up = _navTerrain._nodes.Where(x => x.GetWorldPosition().y > _worldPosition.y);
-            if (up.Any())
-            {
-                var a = up.OrderByDescending(x => x.GetWorldPosition().y).First();
-                _nearByNodes.Add(a);
-            }
+                var right = navTerrain._nodes.Where(z => z.GetWorldPosition().x > y.GetWorldPosition().x);
+                if (right.Any())
+                {
+                    var o = right.OrderBy(z => z.GetWorldPosition().x).First();
+                    arrey.Add(o); 
+                }
+                else
+                {
+                    arrey.Add(null);
+                }
 
-            var down = _navTerrain._nodes.Where(x => x.GetWorldPosition().y < _worldPosition.y);
-            if (down.Any())
-            {
-                var a = down.OrderByDescending(x => x.GetWorldPosition().y).First();
-                _nearByNodes.Add(a);
-            }
+                var up = navTerrain._nodes.Where(z => z.GetWorldPosition().y > y.GetWorldPosition().y);
+                if (up.Any())
+                {
+                    var o = up.OrderByDescending(z => z.GetWorldPosition().y).First();
+                    arrey.Add(o); 
+                }
+                else
+                {
+                    arrey.Add(null);
+                }
 
-            
-        }
-        foreach (var VARIABLE in _nearByNodes)
-        {
-            Debug.Log(VARIABLE.GetWorldPosition());
-        }
+                var down = navTerrain._nodes.Where(z => z.GetWorldPosition().y < y.GetWorldPosition().y);
+                if (down.Any())
+                {
+                    var o = down.OrderBy(z => z.GetWorldPosition().y).First();
+                    arrey.Add(o); 
+                }
+                else
+                {
+                    arrey.Add(null);
+                }
+                
+                var tuple = Tuple.Create<NavNodes, NavNodes, NavNodes, NavNodes>(arrey[0],arrey[1], arrey[2], arrey[3]);
+                return tuple;
+            });
+
+        return result;
     }
 
     public void SetWorldPosition(Vector3 worldPosition)
