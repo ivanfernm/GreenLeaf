@@ -104,7 +104,7 @@ public class NavNodes
     public void SetNearByNodes()
     {
         _nearByNodes = GetNeightbords(_navTerrain);
-        
+
         Debug.Log("left" + _nearByNodes.Item1.GetWorldPosition());
         Debug.Log("right" + _nearByNodes.Item2.GetWorldPosition());
         Debug.Log("up" + _nearByNodes.Item3.GetWorldPosition());
@@ -117,53 +117,53 @@ public class NavNodes
             Tuple.Create<NavNodes, NavNodes, NavNodes, NavNodes>(null, null, null, null),
             (x, y) =>
             {
-               
                 var arrey = new List<NavNodes>();
                 var left = navTerrain._nodes.Where(z => z.GetWorldPosition().x < y.GetWorldPosition().x);
                 if (left.Any())
                 {
                     var o = left.OrderByDescending(z => z.GetWorldPosition().x).First();
-                    arrey.Add(o); 
+                    arrey.Add(o);
                 }
                 else
                 {
-                    arrey.Add(null);
+                    arrey.Add(this);
                 }
 
                 var right = navTerrain._nodes.Where(z => z.GetWorldPosition().x > y.GetWorldPosition().x);
                 if (right.Any())
                 {
                     var o = right.OrderBy(z => z.GetWorldPosition().x).First();
-                    arrey.Add(o); 
+                    arrey.Add(o);
                 }
                 else
                 {
-                    arrey.Add(null);
+                    arrey.Add(this);
                 }
 
                 var up = navTerrain._nodes.Where(z => z.GetWorldPosition().y > y.GetWorldPosition().y);
                 if (up.Any())
                 {
                     var o = up.OrderByDescending(z => z.GetWorldPosition().y).First();
-                    arrey.Add(o); 
+                    arrey.Add(o);
                 }
                 else
                 {
-                    arrey.Add(null);
+                    arrey.Add(this);
                 }
 
                 var down = navTerrain._nodes.Where(z => z.GetWorldPosition().y < y.GetWorldPosition().y);
                 if (down.Any())
                 {
                     var o = down.OrderBy(z => z.GetWorldPosition().y).First();
-                    arrey.Add(o); 
+                    arrey.Add(o);
                 }
                 else
                 {
-                    arrey.Add(null);
+                    arrey.Add(this);
                 }
-                
-                var tuple = Tuple.Create<NavNodes, NavNodes, NavNodes, NavNodes>(arrey[0],arrey[1], arrey[2], arrey[3]);
+
+                var tuple = Tuple.Create<NavNodes, NavNodes, NavNodes, NavNodes>(arrey[0], arrey[1], arrey[2],
+                    arrey[3]);
                 return tuple;
             });
 
