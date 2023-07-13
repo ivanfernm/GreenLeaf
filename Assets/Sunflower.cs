@@ -13,7 +13,7 @@ public class Sunflower : APlants
 
     [SerializeField] private float ActivationDuration;
     [SerializeField] private ParticleSystem particleSystem;
-
+    [SerializeField] private SkinnedMeshRenderer _mesh;
     [SerializeField] private float ImpuseForce = 10f;
     public state currentState = state.Deactivate;
 
@@ -22,10 +22,12 @@ public class Sunflower : APlants
         switch (currentState)
         {
             case state.Activate:
-                gameObject.GetComponent<Renderer>().material.color = Color.green;
+                _mesh.SetBlendShapeWeight(0, 0);
+                //gameObject.GetComponent<Renderer>().material.color = Color.green;
                 break;
             case state.Deactivate:
-                gameObject.GetComponent<Renderer>().material.color = Color.red;
+                _mesh.SetBlendShapeWeight(0, 100);
+                //gameObject.GetComponent<Renderer>().material.color = Color.red;
                 break;
         }
     }
@@ -42,6 +44,7 @@ public class Sunflower : APlants
     private void Start()
     {
         //currentState = state.Deactivate;
+        _mesh = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     void Activate()
