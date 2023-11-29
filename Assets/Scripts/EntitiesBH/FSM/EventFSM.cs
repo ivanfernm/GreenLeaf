@@ -1,6 +1,6 @@
 using System;
 
-namespace FSM
+namespace IA2
 {
 	public class EventFSM<T>
     {

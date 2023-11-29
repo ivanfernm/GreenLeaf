@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FSM
+namespace IA2
 {
 	public class State<T>
     {

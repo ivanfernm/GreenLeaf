@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FSM;
+using System.Linq;
+//using FSM;
 using System;
+using IA2;
 
-public class Personaje : MonoBehaviour
+public class Personaje: MonoBehaviour
 {
     public enum PlayerInputs { MOVE, JUMP, IDLE, DIE, HIGH }
     private EventFSM<PlayerInputs> _myFsm;
