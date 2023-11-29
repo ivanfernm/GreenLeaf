@@ -589,6 +589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationDuration: 10
   particleSystem: {fileID: 1481801962}
+  _mesh: {fileID: 0}
   ImpuseForce: 7
   currentState: 1
 --- !u!54 &331709891
@@ -6249,6 +6250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationDuration: 10
   particleSystem: {fileID: 2140636944}
+  _mesh: {fileID: 0}
   ImpuseForce: 7
   currentState: 0
 --- !u!65 &1429321266
